@@ -99,7 +99,7 @@ public class BuildClassMapClassVisitor extends AbstractFindTouchPointsClassInstr
 			String parent, String[] interfaces) {
 		classMap.setClassName(name);
 		
-		if ((access & Opcodes.ACC_INTERFACE) != 0) {
+		if ((access & (Opcodes.ACC_INTERFACE|Opcodes.ACC_SYNTHETIC)) != 0) {
 			toInstrument = false;
 		}
 		super.visit(version, access, name, signature, parent, interfaces);		
