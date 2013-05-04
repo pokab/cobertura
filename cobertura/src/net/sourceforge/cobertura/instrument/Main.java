@@ -30,6 +30,7 @@
 
 package net.sourceforge.cobertura.instrument;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -272,7 +273,7 @@ public class Main {
 							"CoberturaInstrumentedArchive", "jar");
 					outputFile.deleteOnExit();
 				}
-				output = new ZipOutputStream(new FileOutputStream(outputFile));
+				output = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(outputFile), 16384));
 			}
 			catch (IOException e)
 			{

@@ -28,6 +28,7 @@ import net.sourceforge.cobertura.CoverageIgnore;
 import net.sourceforge.cobertura.util.ConfigurationUtil;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -134,6 +135,7 @@ public abstract class CoverageDataFileHandler  {
 			File dataFile)
 	{
 		FileOutputStream os = null;
+		BufferedOutputStream bos = null;
 
 		try
 		{
@@ -142,7 +144,9 @@ public abstract class CoverageDataFileHandler  {
 				dataDir.mkdirs();
 			}
 			os = new FileOutputStream(dataFile);
-			saveCoverageData(projectData, os);
+			bos = new BufferedOutputStream(os, 16384);
+			saveCoverageData(projectData, bos);
+			bos.flush();
 		}
 		catch (IOException e)
 		{
